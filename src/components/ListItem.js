@@ -13,7 +13,7 @@ function ListItem({todo, onDeleteItem, onToggleItem}) {
 
     return (
         <li onClick={onToggle}>
-            {todo.title} - {'' + todo.isDone}
+            {todo.title} - {'' + todo.completed}
             <button onClick={onDeleteTodo}>X</button>
         </li>
     );
