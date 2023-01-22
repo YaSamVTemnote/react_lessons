@@ -1,20 +1,18 @@
 import {useEffect, useState} from "react";
+import {createTodo, deleteTodo, getTodos, updateTodo} from "../api";
 
 export default function useTodos() {
     const [todos, setTodos] = useState([])
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(resp => resp.json())
+        getTodos()
             .then(data => setTodos(data))
     }, []);
 
 
 
     const deleteTodoItem = (id) => {
-        fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-            method: 'DELETE'
-        })
+        deleteTodo(id)
         const newTodos = todos.filter(todo => todo.id !== id)
         setTodos(newTodos)
     }
@@ -22,12 +20,7 @@ export default function useTodos() {
     const addTodoItem = (todo) => {
         todo = {...todo, completed: false}
 
-        fetch('https://jsonplaceholder.typicode.com/todos', {
-            method: 'POST',
-            body: JSON.stringify(todo),
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(resp => resp.json())
+        createTodo(todo)
             .then(data => setTodos([...todos, data]))
     }
 
@@ -39,11 +32,7 @@ export default function useTodos() {
         const newTodos = todos.map(todo => todo.id === id ? newItem : todo)
         setTodos(newTodos)
 
-        fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify(newItem),
-            headers: {'Content-Type': 'application/json'}
-        })
+        updateTodo(newItem)
     }
     return {
         todos, addTodoItem, deleteTodoItem, toggleTodoItem
