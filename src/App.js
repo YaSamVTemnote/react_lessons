@@ -1,33 +1,23 @@
 import './App.css';
 import {useDispatch, useSelector} from "react-redux";
 import {decrement, increment, set} from "./store/actions/counter";
+import List from "./components/List";
+import Form from "./components/Form";
+import {fetchTodos} from "./store/actions/todos";
+import {useEffect} from "react";
+import Filters from "./components/Filters";
 
 function App() {
-    const {counts, updatedAt} = useSelector(state => ({
-        counts: state.counts,
-        updatedAt: state.updatedAt
-    }))
-
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchTodos())
+    }, []);
 
-    const handleChange = (e) => {
-        dispatch(set(e.target.value))
-    }
-    const handleInc = () => {
-        dispatch(increment())
-    }
-
-    const handleDecr = () => {
-        dispatch(decrement())
-    }
-
-  return <div>
-      {String(new Date(updatedAt))}
-      <button onClick={handleDecr}>decrement</button>
-      {counts}
-      <button onClick={handleInc}>increment</button>
-      <input type='number' value={counts} onChange={handleChange}/>
-  </div>
+  return <>
+      <Filters/>
+      <List/>
+      <Form/>
+  </>
 }
 
 export default App;
