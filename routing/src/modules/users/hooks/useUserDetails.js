@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {getUserDetails} from "../services/usersService";
 
 const useUserDetails = (id) => {
-    const [details, setDetails] = useState({});
+    const [details, setDetails] = useState(null);
 
     useEffect(() => {
         fetchUser()

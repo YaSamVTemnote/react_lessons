@@ -2,7 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import UsersListPage from "./pages/UsersListPage";
 import UserDetailsPage from "./pages/UserDetailsPage";
 
-const UsersModule = () => {
+const UsersModule = ({theme}) => {
 
     return (<Routes>
         <Route path='/' element={<UsersListPage/>} />
